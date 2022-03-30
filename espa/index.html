@@ -1,0 +1,112 @@
+---
+layout: default
+title: "Aalok Yadav"
+tagline: This is what I know
+hdr: "Blog"
+---
+
+<hr>
+  
+<div class="tagline">
+<span class="page-title">{{page.hdr}}</span> <br/>
+<span class="post-list-item-desc"><em>{{page.tagline}}</em></span>
+</div>
+
+<hr>
+<section>
+{% for post in paginator.posts%}
+
+{% if post.type == "text" %}
+<article>
+ <h2>
+    <a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>      {{ post.title }}    </a>
+  </h2>
+    <p>{{ post.excerpt | strip_html | truncate: 250 }}</p>
+</article>
+<hr>
+
+{% elsif post.type == "audio" %}
+<article>
+ <h2>
+    <a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>      {{ post.title }}    </a>
+  </h2>
+    <p>{{ post.excerpt | strip_html | truncate: 250 }}</p>
+</article>
+<hr>
+
+{% elsif post.type == "embed" %}
+<h2>
+   <a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>  {{ post.title }}    </a>
+  </h2>
+   <p>{{ post.excerpt | strip_html | truncate: 250 }}</p>
+<article class="container">
+  <iframe class="responsive-iframe" src="{{ post.src }}" frameborder="0" allow="encrypted-media; picture-in-picture" allowfullscreen></iframe>
+</article>
+<hr>
+
+{% elsif post.type == "Quote" %}
+<article>
+   <h2>
+      <a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>      {{ post.title }}    </a>
+    </h2>
+      <p>{{ post.excerpt | strip_html | truncate: 250 }}</p>
+</article>
+<hr>
+
+{% elsif post.type == "photo" %}
+<article>
+   <h2><a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>      {{ post.title }}    </a></h2>
+   <p class="imgpost"><img src='{{ post.pic }}'/></a></p>
+</article>
+<hr>
+
+{% elsif post.type == "gallery" %}
+   <article>
+    <h2><a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>      {{ post.title }}    </a></h2>
+    <div class="slidercontainer">
+      {% for pic in post.pics %}
+      <div class="showSlide fade"> 
+        <p style="text-align: center;"><img src="{{ pic }}" /></p>  
+      </div>  
+      {% endfor %}
+      <button class="left" onclick="nextSlide(-1)">❮</button>  
+      <button class="right" onclick="nextSlide(1)">❯</button> 
+      <div class="content">{{ post.caption }}</div>
+      </div>
+   </article>
+   <hr>
+   
+  {% else %}
+  <article>
+     <h2>
+        <a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>      {{ post.title }}    </a>
+      </h2>
+        <p>{{ post.excerpt | strip_html | truncate: 250 }}</p>
+  </article>
+  <hr>
+  {% endif %}
+  {% endfor %}
+</section> 
+
+{% include slider.html %}
+  {% if paginator.total_pages > 1 %}
+    <nav class="pagination">
+      {% if paginator.previous_page %}
+        <a class="paginationLink" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
+      {% endif %}
+
+    {% for page in (1..paginator.total_pages) %}
+      {% if page == paginator.page %}
+        <em class="paginationLink paginationLinkCurrent">{{ page }}</em>
+      {% elsif page == 1 %}
+        <a class="paginationLink" href="/">{{ page }}</a>
+      {% else %}
+        <a class="paginationLink" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if paginator.next_page %}
+      <a class="paginationLink" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
+    {% endif %}
+    </nav>
+  {% endif %}

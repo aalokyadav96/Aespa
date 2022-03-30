@@ -1,0 +1,22 @@
+title: Aespa
+description: A theme with the design like Tumblr or Instagram. Made with Jekyll. Jekyll theme instagram.
+
+markdown: kramdown
+
+compress_html:
+  clippings: all
+  comments: [""]
+  endings: [html, head, body, li, dt, dd, rt, rp, optgroup, option, colgroup, caption, thead, tbody, tfoot, tr, td, th]
+  profile: false
+  blanklines: false
+  ignore:
+    envs: []
+
+permalink: pretty
+paginate: 12
+exclude:
+- README.md
+
+plugins: [jekyll-paginate, kramdown]
+# Build settings
+markdown: kramdown
