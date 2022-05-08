@@ -30,7 +30,26 @@ hdr: "Blog"
  <h2>
     <a href='{{ site.url }}{{ post.url }}' title='{{ post.title }}'>      {{ post.title }}    </a>
   </h2>
-    <p>{{ post.excerpt | strip_html | truncate: 250 }}</p>
+  <table class="player">
+    <tr>
+        <td colspan="3">
+            Music Player
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!-- Show a Play/Pause button -->
+            <input type="button" id="playpause" value="Play" style="width: 60px" onclick="stopgo(this)">
+        </td>
+        <td>
+            <!-- Show an HTML5 range control for volume -->
+            Volume:</td>
+        <td>
+            <input type="range" min="0" max="100" oninput="volume(this.value/100)" title="Volume">
+        </td>
+    </tr>
+</table>
+{% include audio.html %}
 </article>
 <hr>
 

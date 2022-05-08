@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="A simple JavaScript music player with Play, Pause, and Volume controls, for JavaScript learners. Source at https://alansimpson.me/javascript/code_quickies/musicplayer">
+    <meta name="author" contant="Alan Simpson">
+    <title>Music Player</title>
+
+    <!-- Just some basic styling, style yours to taste -->
+    <style>
+        table.player {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border: solid 1px silver;
+            margin: 1em auto;
+        }
+
+        table.player tr:nth-child(1) {
+            background: #eee;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        table.player td:nth-child(1) {
+            width: 100px;
+        }
+    </style>
+    <script>
+        //Barebones code, doesn't text for compatibility or mp3 support.
+        //Just assumes browser is good and goes for it.
+        var player = document.createElement('audio');
+        // replace url below with path to mp3 file of your own choosing.
+        player.setAttribute('src', 'https://alansimpson.me/zeta/bucket.mp3');
+
+        // Sets the loop attribute so music plays continuously. Change it to False if you prefer.
+        player.setAttribute('loop', true);
+
+        //Play and pause the player, and change button text accordingly.
+        function stopgo(btn) {
+            if (btn.value == "Pause") {
+                player.pause()
+                btn.value = "Play"
+            } else {
+                player.play()
+                btn.value = "Pause"
+            }
+        }
+        //Adjust the player volume.
+        function volume(amt) {
+            player.volume = amt
+        }
+        //Initialize to half volume.
+        player.volume = .5
+    </script>
+</head>
+<body>
+    <table class="player">
+        <tr>
+            <td colspan="3">
+                Music Player
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Show a Play/Pause button -->
+                <input type="button" id="playpause" value="Play" style="width: 60px" onclick="stopgo(this)">
+            </td>
+            <td>
+                <!-- Show an HTML5 range control for volume -->
+                Volume:</td>
+            <td>
+                <input type="range" min="0" max="100" oninput="volume(this.value/100)" title="Volume">
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
